@@ -7,7 +7,7 @@ export default function Navbar() {
                 
             </div>
             <div>
-                Alert
+                Alerts
             </div>
         </div>
     )
