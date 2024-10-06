@@ -1,16 +1,14 @@
-export default function Navbar() {
+import Link from "next/link";
 
+export default function Navbar() {
     return (
-        <div className="flex w-full justify-between py-6 px-10 border-b border-neutral-500 bg-neutral-950">
+        <div className="flex w-full justify-between py-6 px-10 border-b bg-neutral-950 border-neutral-500">
             <div className="text-2xl font-bold">
-                Tungsten Orbit
-                
+            <Link href={"/"}>Tungsten Orbit</Link>
             </div>
-            <div>
-                Alerts
+            <div className="hover:underline cursor-pointer">
+                <Link href={"/alerts"}>Alerts</Link>
             </div>
         </div>
-    
-    )
-
+    );
 }
