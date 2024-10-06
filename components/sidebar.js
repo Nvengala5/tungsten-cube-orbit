@@ -1,20 +1,17 @@
 export default function Sidebar() {
-
     return (
-        <div className="flex w-40 l-50 border-a border-neutral-500 bg-neutral-950">
-            <div className= "py-24 px-40">
-                <div>
+        <div className="flex flex-col w-64 min-h-screen border-r border-neutral-500 bg-neutral-900">
+            <div className="py-8 px-6 space-y-6">
+                <div className="hover:underline cursor-pointer">
                     Homepage
                 </div>
-                <div>
+                <div className="hover:underline cursor-pointer">
                     Orbit Map
                 </div>
-                <div>
+                <div className="hover:underline cursor-pointer">
                     Orbit Data
                 </div>
             </div>
         </div>
-    
     )
-
 }
