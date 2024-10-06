@@ -99,7 +99,7 @@ export default function SolarSystem() {
     const mercury = createPlanet(0.8 * sizeScale, 0xbebebe); 
     const venus = createPlanet(1.2 * sizeScale, 0xffa500);
     const earth = createPlanet(1.3 * sizeScale, 0x0000ff);
-    const moon = createPlanet(0.4 * sizeScale, 0xaaaaaa); 
+    const moon = createPlanet(0.6 * sizeScale, 0xffffff); 
     const mars = createPlanet(1.1 * sizeScale, 0xff4500);
 
     // Move the camera back
