@@ -10,6 +10,7 @@ export default function Navbar() {
                 Alert
             </div>
         </div>
+    
     )
 
 }
