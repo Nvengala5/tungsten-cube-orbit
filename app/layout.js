@@ -17,8 +17,10 @@ export default function RootLayout({ children }) {
        className={`${spacemono.variable} bg-neutral-800 text-white font-mono`}
       >
         <Navbar/>
+        <div className="flex max-w-scree">
         <Sidebar/>
         {children}
+        </div>
       </body>
     </html>
   );

@@ -31,7 +31,7 @@ export default async function Home() {
   return (
     <div>
       <h1 className="text-white">hi there</h1>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-4 gap-2">
         <Card title="NEO Count" number={nasaAPIData.element_count} subtitle="Objects passing near Earth during the next week"/>
         <Card title="PHA Count" number={potentialHazard} subtitle="Potentially hazardous asteroids during the next week"/>
         <Card title="Sentry-Tracked Objects" number={potentialColl} subtitle="Objects that are being tracked by NASA's Sentry during the next week"/>

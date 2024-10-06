@@ -2,7 +2,7 @@
 
 import SolarSystem from "@/components/SolarSystem";
 
-const HomePage = () => {
+const OrbitMap = () => {
   return (
     <div>
       <SolarSystem/>
@@ -10,4 +10,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default OrbitMap;

@@ -27,11 +27,11 @@ export default function SolarSystem() {
   // Fetch orbital data for planets and Moon from JPL Horizons API
   const fetchPlanetData = async () => {
     const planetIds = {
-      mercury: '199', // Mercury
-      venus: '299', // Venus
-      earth: '399', // Earth
-      moon: '301',  // Moon
-      mars: '499',  // Mars
+      mercury: '199',
+      venus: '299',
+      earth: '399',
+      moon: '301',
+      mars: '499',
     };
 
     const startDate = '2023-10-06';
@@ -51,7 +51,7 @@ export default function SolarSystem() {
 
         const relevant = result.slice(start, end);
         const lineSplit = relevant.split('\n');
-        let planetData = []
+        let planetData = [];
         for (let i = 2; i < lineSplit.length; i += 4) {
           planetData.push(parseCoordinates(lineSplit[i]));
         }
@@ -161,9 +161,11 @@ export default function SolarSystem() {
 
     // Clean up on component unmount
     return () => {
-      mountRef.current.removeChild(renderer.domElement);
+      if (mountRef.current && renderer.domElement) {
+        mountRef.current.removeChild(renderer.domElement);
+      }
     };
   }, [planetData, frame]);
 
-  return <div ref={mountRef} style={{ width: '100%', height: '100vh' }} />;
+  return <div ref={mountRef} style={{ width: 'calc(100%-160px)', height: '100vh' }} />;
 }
