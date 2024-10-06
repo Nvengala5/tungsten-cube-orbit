@@ -1,6 +1,6 @@
 // pages/index.js
 
-import SolarSystem from "@/components/solarSystem";
+import SolarSystem from "@/components/SolarSystem";
 
 const HomePage = () => {
   return (
