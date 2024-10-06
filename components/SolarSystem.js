@@ -25,7 +25,6 @@ export default function SolarSystem() {
   const [frame, setFrame] = useState(0);
 
   // Fetch orbital data for planets and Moon from JPL Horizons API
-  // Fetch orbital data for planets and Moon from JPL Horizons API
   const fetchPlanetData = async () => {
     const planetIds = {
       mercury: '199', // Mercury
@@ -35,7 +34,7 @@ export default function SolarSystem() {
       mars: '499',  // Mars
     };
 
-    const startDate = '2024-10-01';
+    const startDate = '2023-10-06';
     const stopDate = '2024-10-06';
     const stepSize = '1 d'; // Daily data
 
@@ -51,28 +50,22 @@ export default function SolarSystem() {
         const end = result.indexOf('$$EOE');
 
         const relevant = result.slice(start, end);
-        console.log(relevant)
         const lineSplit = relevant.split('\n');
         let planetData = []
         for (let i = 2; i < lineSplit.length; i += 4) {
-          console.log(lineSplit[i])
-          planetData.push(parseCoordinates(lineSplit[i]))
+          planetData.push(parseCoordinates(lineSplit[i]));
         }
 
         data[planet] = planetData;
-
       } catch (error) {
         console.error(`Failed to fetch data for ${planet}`, error);
       }
     }
-
-    console.log({ data });
     setPlanetData(data);
   };
 
-
   useEffect(() => {
-    fetchPlanetData()
+    fetchPlanetData();
   }, []);
 
   useEffect(() => {
@@ -98,26 +91,29 @@ export default function SolarSystem() {
     };
 
     // Scale down distances and sizes for visualization purposes
-    const distanceScale = 0.05; // Larger scale for better visibility
-    const sizeScale = 2; // Increased size scale
+    const distanceScale = 0.05;
+    const sizeScale = 2;
 
     // Create planets and Moon (scaled sizes and distances)
-    const sun = createPlanet(6 * sizeScale, 0xffff00); // Sun (increased size)
-    const mercury = createPlanet(0.8 * sizeScale, 0xbebebe); // Mercury
-    const venus = createPlanet(1.2 * sizeScale, 0xffa500); // Venus
-    const earth = createPlanet(1.3 * sizeScale, 0x0000ff); // Earth
-    const moon = createPlanet(0.4 * sizeScale, 0xaaaaaa); // Moon
-    const mars = createPlanet(1.1 * sizeScale, 0xff4500); // Mars
+    const sun = createPlanet(6 * sizeScale, 0xffff00); 
+    const mercury = createPlanet(0.8 * sizeScale, 0xbebebe); 
+    const venus = createPlanet(1.2 * sizeScale, 0xffa500);
+    const earth = createPlanet(1.3 * sizeScale, 0x0000ff);
+    const moon = createPlanet(0.4 * sizeScale, 0xaaaaaa); 
+    const mars = createPlanet(1.1 * sizeScale, 0xff4500);
 
-    // Move the camera back so that everything is visible
-    camera.position.z = 60; // Adjusted for larger scale
+    // Move the camera back
+    camera.position.z = 60;
 
     // Animation loop
     const animate = () => {
       requestAnimationFrame(animate);
-      // Update planet positions using the fetched data
-      const time = Date.now() * 0.001;
 
+      // Ensure the frame index doesn't go out of bounds
+      const totalFrames = planetData.mercury ? planetData.mercury.length : 1;
+      setFrame((prevFrame) => (prevFrame + 1) % totalFrames); // Loop through available frames
+
+      // Update planet positions using the fetched data
       if (planetData.mercury) {
         mercury.position.set(
           planetData.mercury[frame].x * distanceScale,
@@ -142,7 +138,7 @@ export default function SolarSystem() {
         // Update Moon position relative to Earth
         if (planetData.moon) {
           moon.position.set(
-            earth.position.x + planetData.moon[frame].x * distanceScale * 0.00257, // Scale moon distance
+            earth.position.x + planetData.moon[frame].x * distanceScale * 0.00257,
             earth.position.y + planetData.moon[frame].y * distanceScale * 0.00257,
             earth.position.z + planetData.moon[frame].z * distanceScale * 0.00257
           );
@@ -156,19 +152,18 @@ export default function SolarSystem() {
         );
       }
 
+      // Render the scene
       renderer.render(scene, camera);
     };
 
-    setInterval(() => {setFrame(curr => curr > 5 ? 0: curr + 1); animate()}, 500)
-
-  
+    // Start the animation loop
+    animate();
 
     // Clean up on component unmount
     return () => {
       mountRef.current.removeChild(renderer.domElement);
     };
-  }, [planetData])
-
+  }, [planetData, frame]);
 
   return <div ref={mountRef} style={{ width: '100%', height: '100vh' }} />;
 }
